@@ -1,11 +1,11 @@
 import { user } from "../models/user_model.js";
-import { ApiResponse } from "../utils/apiresponse.js";
-import { ApiError } from "../utils/apierror.js";
-import { asyncHandler } from "../utils/async_handlers.js";
+import { apiresponse } from "../utils/apiresponse.js";
+import { apierror } from "../utils/apierror.js";
+import { asynchandler } from "../utils/async_handlers.js";
 import {
-  emailVerificationMailgenContent,
-  forgotPasswordMailgenContent,
-  sendEmail,
+  emailverificationmailgencontent,
+  forgotpasswordmailgencontent,
+  sendemail,
 } from "../utils/mail.js";
 import jwt from "jsonwebtoken";
 
@@ -26,7 +26,7 @@ const generateAccessAndRefreshTokens = async (userId) => {
   }
 };
 
-const registerUser = asyncHandler(async (req, res) => {
+const registeruser = asynchandler(async (req, res) => {
   const { email, username, password, role } = req.body;
 
   const existedUser = await User.findOne({
@@ -55,7 +55,7 @@ const registerUser = asyncHandler(async (req, res) => {
   await sendEmail({
     email: user?.email,
     subject: "Please verify your email",
-    mailgenContent: emailVerificationMailgenContent(
+    mailgenContent: emailverificationmailgencontent(
       user.username,
       `${req.protocol}://${req.get("host")}/api/v1/users/verify-email/${unHashedToken}`,
     ),
@@ -80,7 +80,7 @@ const registerUser = asyncHandler(async (req, res) => {
     );
 });
 
-const login = asyncHandler(async (req, res) => {
+const login = asynchandler(async (req, res) => {
   const { email, password, username } = req.body;
 
   if (!email) {
@@ -129,7 +129,7 @@ const login = asyncHandler(async (req, res) => {
     );
 });
 
-const logoutUser = asyncHandler(async (req, res) => {
+const logoutuser = asynchandler(async (req, res) => {
   await User.findByIdAndUpdate(
     req.user._id,
     {
@@ -152,4 +152,4 @@ const logoutUser = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, {}, "User logged out"));
 });
 
-export{generateAccessAndRefreshTokens,login,registerUser,logoutUser}
+export{generateAccessAndRefreshTokens,login,registeruser,logoutuser}

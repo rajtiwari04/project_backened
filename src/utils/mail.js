@@ -55,7 +55,7 @@ const emailverificationmailgencontent = (username, verificationurl) => ({
     }
 });
 
-const forgetpasswordmailgencontent = (username, passwordverificationurl) => ({
+const forgotpasswordmailgencontent = (username, passwordverificationurl) => ({
     body: {
         name: username,
         intro: "Welcome to my app! We are excited to have you.",
@@ -71,4 +71,4 @@ const forgetpasswordmailgencontent = (username, passwordverificationurl) => ({
     }
 });
 
-export { emailverificationmailgencontent, forgetpasswordmailgencontent, sendemail };
+export { emailverificationmailgencontent, forgotpasswordmailgencontent, sendemail };
